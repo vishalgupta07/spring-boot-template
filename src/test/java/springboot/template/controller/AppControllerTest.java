@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Objects;
+
 /**
  * Test class for AppController
  */
@@ -20,6 +22,6 @@ public class AppControllerTest {
     @Test
     public void appControllerTest() {
         Assert.assertEquals("AppDomain(appString=vishalgupta07)",
-                appController.testAppController("vishalgupta07").getBody().toString());
+                Objects.requireNonNull(appController.testAppController("vishalgupta07").getBody()).toString());
     }
 }

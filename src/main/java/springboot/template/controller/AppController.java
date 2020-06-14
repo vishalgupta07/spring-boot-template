@@ -23,7 +23,7 @@ public class AppController {
 
     @GetMapping("/testApp/{testString}")
     @Cacheable(value = "appCache")
-    ResponseEntity testAppController(@PathVariable("testString") String testString) {
+    public ResponseEntity testAppController(@PathVariable("testString") String testString) {
         return ResponseEntity.ok().body(appService.testAppService(testString));
     }
 }
