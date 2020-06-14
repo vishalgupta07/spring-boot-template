@@ -1,0 +1,46 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <!--Hikari CP Config-->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP"/>
+        <property name="connectionTestQuery" value="SELECT 1"/>
+        <property name="driverClassName"
+                  value="net.sourceforge.jtds.jdbc.Driver"/>
+        <!-- jdbc url -->
+        <property name="jdbcUrl" value=""/>
+        <property name="maximumPoolSize" value="20"/>
+        <property name="idleTimeout" value="30000"/>
+        <!-- username/password -->
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+    </bean>
+
+    <!--Hikari CP Datasource-->
+    <bean id="datasource" class="com.zaxxer.hikari.HikariDataSource"
+          primary="true" destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="configLocation"
+                  value="classpath:springboot/template/dao/mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations"
+                  value="classpath:springboot/template/dao/mybatis/mapper/**/*.xml"/>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+        <constructor-arg index="1" value="BATCH"/>
+    </bean>
+
+    <bean id="transactionalManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="datasource"/>
+    </bean>
+
+</beans>

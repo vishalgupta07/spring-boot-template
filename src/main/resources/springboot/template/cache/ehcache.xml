@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+         updateCheck="false" monitoring="autodetect" dynamicConfig="true">
+    <!--define cache blocks here. use @Cacheable annotation to cache the result for a particular service method return values-->
+
+    <!--This is a testCache block with max objects that it can hold is 1000, eternal=false means the object will expire
+        in defined duration of 60 sec (in our case)-->
+    <cache name="appCache" maxElementsInMemory="1000" eternal="false" overflowToDisk="false" timeToLiveSeconds="60"
+           timeToIdleSeconds="0" diskPersistent="false"/>
+
+</ehcache>
