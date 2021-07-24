@@ -26,12 +26,7 @@ pipeline {
         stage('Fetch approvals') {
             steps {
                 timeout(time: 2, unit: 'HOURS') {
-                    input message: 'Approve for deployment?', submitter: 'admin'
-                }
-                post {
-                    success {
-                        echo "Approved/rejected by admin"
-                    }
+                    input message: 'Approve for deployment?'
                 }
             }
         }
