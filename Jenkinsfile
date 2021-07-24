@@ -26,7 +26,7 @@ pipeline {
         stage('Fetch approvals') {
             steps {
                 timeout(time: 2, unit: 'HOURS') {
-                    input message: 'Approve for deployment?'
+                    input message: 'Approve deployment?'
                 }
             }
         }
