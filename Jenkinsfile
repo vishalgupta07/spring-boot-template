@@ -1,19 +1,38 @@
 pipeline {
+    // node we would like to run the code
     agent any
+
     stages {
         stage('Package') {
             steps {
-                echo "Package step"
+                sh 'mvn clean package'
+            }
+            post {
+                success {
+                    echo 'Package is complete'
+                }
             }
         }
         stage('Test') {
             steps {
-                echo "Tests ran"
+                sh 'mv test'
+            }
+            post {
+                success {
+                    echo 'Test is complete'
+                }
             }
         }
         stage('Fetch approvals') {
             steps {
-                echo "Requesting approvals"
+                timeout(time: 2, unit: 'HOURS') {
+                    input message: 'Approve for deployment?', submitter: 'admin'
+                }
+                post {
+                    success {
+                        echo "Approved/rejected by admin"
+                    }
+                }
             }
         }
         stage('Deploy to production') {
