@@ -8,6 +8,7 @@ class SpringBootTemplateApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Intended change to trigger webhook
 	}
 
 }
